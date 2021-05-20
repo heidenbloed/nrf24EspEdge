@@ -64,7 +64,6 @@ void loop(void){
     Serial.print("Got msg with id = ");
     Serial.println(uuid);
 
-    //char* uuidstr = uuid_to_str(uuid);
     Serial.print("Publish uuid ");
     Serial.print(uuid);
     Serial.print(" in topic ");
@@ -75,20 +74,6 @@ void loop(void){
 
   client.loop();
 }
-
-/*char* uuid_to_str(uint8_t uuid[])
-{
-  char str[uuid_length*2+1] = "";
-    for (unsigned int i = 0; i < uuid_length; i++)
-    {
-        uint8_t nib1 = (uuid[i] >> 4) & 0x0F;
-        uint8_t nib2 = (uuid[i] >> 0) & 0x0F;
-        str[i*2+0] = nib1  < 0xA ? '0' + nib1  : 'A' + nib1  - 0xA;
-        str[i*2+1] = nib2  < 0xA ? '0' + nib2  : 'A' + nib2  - 0xA;
-    }
-    str[uuid_length*2] = '\0';
-    return str;
-}*/
 
 void setup_wifi_and_mqtt()
 {
@@ -113,11 +98,11 @@ void reconnect_mqtt() {
   // Loop until we're reconnected
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
-    if (client.connect(mqtt_id,mqtt_username,mqtt_password)) {
-      Serial.println("connected");
+    if (client.connect(mqtt_id, mqtt_username, mqtt_password)) {
+      Serial.println(" connected");
       delay(20);
     } else {
-      Serial.print("failed, rc=");
+      Serial.print(" failed, return code=");
       Serial.print(client.state());
       Serial.println(" try again in 5 seconds");
       delay(5000);
